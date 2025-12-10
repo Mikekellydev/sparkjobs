@@ -1,5 +1,5 @@
 import jobsFile from "../../data/latest-feeds.json";
-import { sampleJobs, type Job } from "./jobs";
+import type { Job } from "./jobs";
 
 type FeedFile = {
   jobs?: Job[];
@@ -15,8 +15,7 @@ export function getCachedJobs(): Job[] {
 }
 
 export function getAllJobs(): Job[] {
-  if (cachedJobs.length > 0) return cachedJobs;
-  return sampleJobs;
+  return cachedJobs;
 }
 
 export function getJobById(id: string): Job | undefined {
