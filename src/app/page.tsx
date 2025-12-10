@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { sampleJobs, veteranResources } from "@/data/jobs";
+import { getAllJobs } from "@/data/jobCache";
+import { veteranResources } from "@/data/jobs";
 
 const remoteFilters = [
   "Remote",
@@ -10,6 +11,8 @@ const remoteFilters = [
 ];
 
 export default function Home() {
+  const jobs = getAllJobs().slice(0, 4);
+  const hasJobs = jobs.length > 0;
   return (
     <main className="space-y-12 text-slate-100">
       <header className="space-y-6">
@@ -89,45 +92,61 @@ export default function Home() {
             </span>
           ))}
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {sampleJobs.map((job) => (
-            <article key={job.id} className="card flex flex-col gap-4 p-6">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
-                    {job.company}
-                  </p>
-                  <h3 className="font-display text-2xl text-white">{job.title}</h3>
-                  <p className="text-sm text-slate-400">{job.location}</p>
-                </div>
-                <div className="text-right text-sm text-slate-400">
-                  <div className="rounded-full bg-amber-400/15 px-3 py-1 text-amber-100">
-                    {job.remoteType}
+        {hasJobs ? (
+          <div className="grid gap-4 md:grid-cols-2">
+            {jobs.map((job) => (
+              <article key={job.id} className="card flex flex-col gap-4 p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
+                      {job.company}
+                    </p>
+                    <h3 className="font-display text-2xl text-white">{job.title}</h3>
+                    <p className="text-sm text-slate-400">{job.location}</p>
                   </div>
-                  <p className="mt-2 text-amber-200">{job.lastSeen}</p>
+                  <div className="text-right text-sm text-slate-400">
+                    <div className="rounded-full bg-amber-400/15 px-3 py-1 text-amber-100">
+                      {job.remoteType}
+                    </div>
+                    <p className="mt-2 text-amber-200">
+                      {job.publishedAt ?? job.lastSeen ?? ""}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <p className="text-sm text-slate-200">{job.summary}</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge label={job.employmentType} />
-                {job.clearance ? <Badge label={job.clearance} tone="info" /> : null}
-                {job.salary ? <Badge label={job.salary} tone="muted" /> : null}
-                {job.tags.map((tag) => (
-                  <Badge key={tag} label={tag} tone="muted" />
-                ))}
-              </div>
-              <div className="flex items-center justify-between text-sm text-slate-300">
-                <span>Source: {job.source}</span>
-                <Link
-                  href={`/jobs/${job.id}`}
-                  className="text-amber-200 underline-offset-4 hover:text-amber-100 hover:underline"
-                >
-                  View role
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+                <p className="text-sm text-slate-200">{job.summary}</p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge label={job.employmentType} />
+                  {job.clearance ? <Badge label={job.clearance} tone="info" /> : null}
+                  {job.salary ? <Badge label={job.salary} tone="muted" /> : null}
+                  {job.tags.map((tag) => (
+                    <Badge key={tag} label={tag} tone="muted" />
+                  ))}
+                </div>
+                <div className="flex items-center justify-between text-sm text-slate-300">
+                  <span>Source: {job.source}</span>
+                  {job.applyUrl ? (
+                    <Link
+                      href={job.applyUrl}
+                      className="text-amber-200 underline-offset-4 hover:text-amber-100 hover:underline"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View role ↗
+                    </Link>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="card p-6 text-slate-200">
+            <p className="font-display text-xl text-white">No jobs cached yet.</p>
+            <p className="mt-2 text-sm text-slate-300">
+              Pull real jobs with `npm run ingest:fetch`, commit `data/latest-feeds.json`, and
+              redeploy so visitors can click through to real roles.
+            </p>
+          </div>
+        )}
       </section>
 
       <section className="grid gap-6 md:grid-cols-[1.6fr_1fr]">

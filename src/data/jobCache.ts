@@ -10,12 +10,24 @@ const feed = jobsFile as FeedFile;
 const cachedJobs: Job[] = Array.isArray(feed.jobs) ? feed.jobs : [];
 export const cachedFetchedAt = feed.fetchedAt;
 
+const allowedLocations = ["auburn", "fort wayne"];
+
+function matchesAllowedLocation(location: string | undefined) {
+  if (!location) return false;
+  const lower = location.toLowerCase();
+  return allowedLocations.some((city) => lower.includes(city));
+}
+
+function filterAllowed(jobs: Job[]): Job[] {
+  return jobs.filter((job) => matchesAllowedLocation(job.location));
+}
+
 export function getCachedJobs(): Job[] {
   return cachedJobs.length > 0 ? cachedJobs : [];
 }
 
 export function getAllJobs(): Job[] {
-  return cachedJobs;
+  return filterAllowed(cachedJobs);
 }
 
 export function getJobById(id: string): Job | undefined {
