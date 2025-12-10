@@ -102,12 +102,25 @@ function inferRemoteType(location = "") {
   return "Optional Remote";
 }
 
+const allowedLocations = ["auburn", "fort wayne"];
+
+function locationAllowed(location = "") {
+  const lower = location.toLowerCase();
+  return allowedLocations.some((city) => lower.includes(city));
+}
+
+function filterByLocation(jobs) {
+  return jobs.filter((job) => locationAllowed(job.location));
+}
+
 async function main() {
   try {
     const [remotive, muse] = await Promise.all([fetchRemotive(25), fetchMuse(25)]);
-    const jobs = dedupe([...remotive, ...muse]);
+    const jobs = filterByLocation(dedupe([...remotive, ...muse]));
     if (jobs.length === 0) {
-      console.error("No jobs fetched from open feeds. Aborting to avoid empty deploy.");
+      console.error(
+        "No jobs fetched for allowed locations (Auburn, IN / Fort Wayne, IN). Aborting to avoid empty or irrelevant deploy.",
+      );
       process.exitCode = 1;
       return;
     }

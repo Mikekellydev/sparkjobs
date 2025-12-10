@@ -23,7 +23,7 @@ function filterAllowed(jobs: Job[]): Job[] {
 }
 
 export function getCachedJobs(): Job[] {
-  return cachedJobs.length > 0 ? cachedJobs : [];
+  return filterAllowed(cachedJobs);
 }
 
 export function getAllJobs(): Job[] {
