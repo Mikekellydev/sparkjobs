@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { getAllJobs, getJobById } from "@/data/jobCache";
 
 type Params = { id: string };
@@ -12,7 +11,23 @@ export function generateStaticParams() {
 export default function JobDetail({ params }: { params: Params }) {
   const job = getJobById(params.id);
 
-  if (!job) return notFound();
+  if (!job) {
+    return (
+      <main className="flex min-h-[50vh] flex-col gap-4 text-slate-100">
+        <h1 className="font-display text-3xl text-white">Job not found</h1>
+        <p className="text-slate-300">
+          This role is not in the current static cache. Refresh the data locally with
+          `npm run ingest:seed` (or `ingest:fetch`), rebuild, and redeploy to GitHub Pages.
+        </p>
+        <Link
+          href="/jobs"
+          className="pill border-slate-700 bg-slate-900 text-slate-100 hover:border-amber-300 hover:text-amber-100"
+        >
+          ← Back to jobs
+        </Link>
+      </main>
+    );
+  }
 
   return (
     <main className="space-y-6 text-slate-100">
