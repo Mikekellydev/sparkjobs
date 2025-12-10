@@ -13,7 +13,8 @@
     "prisma:studio": "prisma studio",
     "ingest:fetch": "node scripts/fetch-feeds.mjs",
     "ingest:seed": "node scripts/seed-cache.mjs",
-    "ingest:prune": "node scripts/prune-cache.mjs"
+    "ingest:prune": "node scripts/prune-cache.mjs",
+    "ingest:import": "node scripts/import-json.js"
   },
   "dependencies": {
     "@prisma/client": "^7.1.0",
