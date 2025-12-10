@@ -1,0 +1,121 @@
+{
+  "fetchedAt": "2025-12-10T16:18:58.144Z",
+  "jobs": [
+    {
+      "id": "seed-1",
+      "title": "Senior Cloud Platform Engineer",
+      "company": "Sparkwave IT Service",
+      "location": "Remote · US only",
+      "remoteType": "Remote",
+      "employmentType": "Full-time",
+      "tags": [
+        "kubernetes",
+        "aws",
+        "platform",
+        "veteran-friendly"
+      ],
+      "summary": "Lead cloud platform hardening, observability, and deployment automation for mission customers.",
+      "lastSeen": "today",
+      "source": "Seeded sample",
+      "applyUrl": "https://sparkwaveitservice.com/careers/cloud-platform",
+      "salary": "$150K–$180K",
+      "publishedAt": "2025-12-10T16:18:58.143Z"
+    },
+    {
+      "id": "seed-2",
+      "title": "Lead DevSecOps Engineer",
+      "company": "Remote Defense Analytics",
+      "location": "Remote · North America",
+      "remoteType": "Remote",
+      "employmentType": "Full-time",
+      "tags": [
+        "devsecops",
+        "iac",
+        "clearance-eligible"
+      ],
+      "summary": "Own CI/CD, IaC, and security controls for multi-account workloads; mentor teams on secure delivery.",
+      "lastSeen": "today",
+      "source": "Seeded sample",
+      "applyUrl": "https://example.com/jobs/devsecops",
+      "salary": "$145K–$170K",
+      "publishedAt": "2025-12-10T16:18:58.143Z"
+    },
+    {
+      "id": "seed-3",
+      "title": "Director of IT Operations (Hybrid)",
+      "company": "CivicCyber",
+      "location": "Hybrid · DC / Arlington",
+      "remoteType": "Hybrid",
+      "employmentType": "Full-time",
+      "tags": [
+        "it-ops",
+        "leadership",
+        "compliance"
+      ],
+      "summary": "Lead IT operations, endpoint security, and compliance (ATO/POA&M) for federal-facing teams.",
+      "lastSeen": "today",
+      "source": "Seeded sample",
+      "applyUrl": "https://example.com/jobs/director-it-ops",
+      "salary": "$170K–$200K",
+      "publishedAt": "2025-12-10T16:18:58.143Z"
+    },
+    {
+      "id": "seed-4",
+      "title": "Principal Security Architect",
+      "company": "MissionLane",
+      "location": "Remote · Flexible timezone",
+      "remoteType": "Remote",
+      "employmentType": "Full-time",
+      "tags": [
+        "architecture",
+        "zero-trust",
+        "veteran-friendly"
+      ],
+      "summary": "Define zero-trust architecture, threat modeling, and security standards across cloud workloads.",
+      "lastSeen": "today",
+      "source": "Seeded sample",
+      "applyUrl": "https://example.com/jobs/security-architect",
+      "salary": "$180K–$215K",
+      "publishedAt": "2025-12-10T16:18:58.143Z"
+    },
+    {
+      "id": "seed-5",
+      "title": "Senior Data Engineering Manager",
+      "company": "SignalBridge",
+      "location": "Remote · US",
+      "remoteType": "Remote",
+      "employmentType": "Full-time",
+      "tags": [
+        "data",
+        "spark",
+        "lead",
+        "manager"
+      ],
+      "summary": "Lead a small team building ingestion and quality pipelines (Spark/Python) for analytics customers.",
+      "lastSeen": "today",
+      "source": "Seeded sample",
+      "applyUrl": "https://example.com/jobs/data-engineering-manager",
+      "salary": "$160K–$190K",
+      "publishedAt": "2025-12-10T16:18:58.143Z"
+    },
+    {
+      "id": "seed-6",
+      "title": "IT Manager, Endpoint & Identity",
+      "company": "VectorOps",
+      "location": "Hybrid · San Antonio",
+      "remoteType": "Hybrid",
+      "employmentType": "Full-time",
+      "tags": [
+        "intune",
+        "okta",
+        "it-management"
+      ],
+      "summary": "Manage endpoint, identity, and access controls; coordinate rollouts and incident response playbooks.",
+      "lastSeen": "today",
+      "source": "Seeded sample",
+      "applyUrl": "https://example.com/jobs/it-manager-endpoint",
+      "salary": "$135K–$155K",
+      "publishedAt": "2025-12-10T16:18:58.143Z"
+    }
+  ]
+}

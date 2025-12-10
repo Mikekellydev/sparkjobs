@@ -1,0 +1,158 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  TEMPORARY
+  INTERN
+}
+
+enum RemoteType {
+  REMOTE
+  HYBRID
+  OPTIONAL_REMOTE
+  ONSITE
+}
+
+enum SourceKind {
+  MANUAL
+  API_FEED
+  PARTNER
+}
+
+enum UserRole {
+  ADMIN
+  CONTRIBUTOR
+  SEEKER
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  role      UserRole
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdJobs Job[]  @relation("CreatedJobs")
+  updatedJobs Job[]  @relation("UpdatedJobs")
+}
+
+model Company {
+  id          String   @id @default(cuid())
+  name        String
+  website     String?
+  description String?
+  logoUrl     String?
+  jobs        Job[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([name, website])
+}
+
+model Location {
+  id        String   @id @default(cuid())
+  city      String?
+  region    String?
+  country   String
+  timezone  String?
+  jobs      Job[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id        String          @id @default(cuid())
+  name      String          @unique
+  slug      String          @unique
+  jobs      JobCategory[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  jobs      JobTag[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Source {
+  id        String     @id @default(cuid())
+  name      String
+  kind      SourceKind
+  url       String?
+  jobs      Job[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@unique([name, url])
+}
+
+model Job {
+  id               String         @id @default(cuid())
+  title            String
+  slug             String         @unique
+  description      String
+  applyUrl         String?
+  sourceUrl        String?
+  sourceJobId      String?
+  employmentType   EmploymentType
+  remoteType       RemoteType
+  salaryMin        Int?
+  salaryMax        Int?
+  salaryCurrency   String?        @db.Char(3)
+  postedAt         DateTime?
+  lastSeen         DateTime?
+  featured         Boolean        @default(false)
+  employerVerified Boolean        @default(false)
+  isPublished      Boolean        @default(true)
+  companyId        String?
+  locationId       String?
+  sourceId         String?
+  createdById      String?
+  updatedById      String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  company          Company?       @relation(fields: [companyId], references: [id])
+  location         Location?      @relation(fields: [locationId], references: [id])
+  source           Source?        @relation(fields: [sourceId], references: [id])
+  createdBy        User?          @relation("CreatedJobs", fields: [createdById], references: [id])
+  updatedBy        User?          @relation("UpdatedJobs", fields: [updatedById], references: [id])
+  tags             JobTag[]
+  categories       JobCategory[]
+
+  @@index([remoteType])
+  @@index([employmentType])
+  @@index([companyId])
+  @@index([sourceId])
+  @@unique([sourceId, sourceJobId])
+}
+
+model JobTag {
+  jobId String
+  tagId String
+  job   Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  tag   Tag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([jobId, tagId])
+}
+
+model JobCategory {
+  jobId      String
+  categoryId String
+  job        Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([jobId, categoryId])
+}

@@ -25,10 +25,16 @@ Veteran-first, remote/hybrid job discovery. Built with Next.js (App Router) + Ty
 - `src/data/` — temporary sample data for UI scaffolding
 - `prisma/schema.prisma` — models for Job, Company, Location, Category, Tags, Source, and User
 - `public/` — static assets
+- `data/latest-feeds.json` — cached jobs consumed by the UI and statically exported for GitHub Pages
 
 ## Next steps
 - Connect to Postgres and run `npm run prisma:migrate` to create tables.
 - Swap sample data for Prisma queries; ingestion for Remotive/The Muse is scaffolded and can be cron’d via `npm run ingest:fetch` (or `ingest:seed` when offline).
 - Secure `/admin` with basic auth env vars (`ADMIN_USER`/`ADMIN_PASS`) or NextAuth/reverse proxy; add moderation and export flows (CSV/RSS).
 - Add deployment config for your SparkwaveITService server (Docker or systemd) and a cron for ingestion refresh.
+
+## Deploying to GitHub Pages
+- The Next.js config is set for static export with `basePath`/`assetPrefix` of `/sparkjobs`.
+- Generate static assets: `npm run ingest:seed` (or `ingest:fetch` if network works) then `npm run build` — output is in `out/`.
+- Publish `out/` to the `gh-pages` branch (GitHub Pages set to deploy from that branch/root).
 # sparkjobs
