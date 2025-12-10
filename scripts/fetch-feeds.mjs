@@ -106,6 +106,11 @@ async function main() {
   try {
     const [remotive, muse] = await Promise.all([fetchRemotive(25), fetchMuse(25)]);
     const jobs = dedupe([...remotive, ...muse]);
+    if (jobs.length === 0) {
+      console.error("No jobs fetched from open feeds. Aborting to avoid empty deploy.");
+      process.exitCode = 1;
+      return;
+    }
     await fs.mkdir(path.dirname(outputPath), { recursive: true });
     await fs.writeFile(
       outputPath,

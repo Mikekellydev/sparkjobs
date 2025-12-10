@@ -16,7 +16,7 @@ Veteran-first, remote/hybrid job discovery. Built with Next.js (App Router) + Ty
 - `npm run prisma:generate` — generate Prisma client
 - `npm run prisma:migrate` — create a migration from the current schema (edit migration before applying)
 - `npm run prisma:studio` — open Prisma Studio for quick data inspection
-- `npm run ingest:fetch` — fetch open job feeds (Remotive, The Muse) and cache to `data/latest-feeds.json` for the UI fallback
+- `npm run ingest:fetch` — fetch open job feeds (Remotive, The Muse) and cache to `data/latest-feeds.json` for the UI fallback (fails if no jobs are returned)
 - `npm run ingest:seed` — write curated sample jobs into `data/latest-feeds.json` (useful when outbound network is blocked)
 - `npm run ingest:db` — write cached jobs from `data/latest-feeds.json` into Postgres via Prisma (run after `ingest:fetch` or `ingest:seed`)
 

@@ -14,7 +14,7 @@
 - `npm run prisma:generate` — generate Prisma client from `schema.prisma`.
 - `npm run prisma:migrate` — create a migration from the current schema (review before applying).
 - `npm run prisma:studio` — open Prisma Studio for local data inspection.
-- `npm run ingest:fetch` — fetch open feeds (Remotive, The Muse) and cache to `data/latest-feeds.json` for UI fallback/inspection.
+- `npm run ingest:fetch` — fetch open feeds (Remotive, The Muse) and cache to `data/latest-feeds.json` for UI fallback/inspection (fails if no jobs are fetched).
 - `npm run ingest:seed` — seed curated jobs into `data/latest-feeds.json` when feeds are blocked.
 - `npm run ingest:db` — ingest cached jobs into Postgres via Prisma (requires `DATABASE_URL` and generated client).
 - Static export is enabled (`output: "export"`) with `basePath`/`assetPrefix` set to `/sparkjobs` for GitHub Pages. Adjust in `next.config.ts` if you fork/rename.
