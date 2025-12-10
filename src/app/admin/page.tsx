@@ -123,22 +123,6 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="card space-y-3 p-5">
-        <h3 className="font-display text-lg text-white">How to refresh + secure</h3>
-        <ul className="space-y-2 text-sm text-slate-200">
-          <li>
-            • Manual refresh: <code className="text-amber-100">npm run ingest:fetch</code> writes
-            `data/latest-feeds.json`; schedule via cron every 6h.
-          </li>
-          <li>
-            • Protect this route with NextAuth/basic auth/proxy before exposing externally.
-          </li>
-          <li>
-            • Next step: replace file cache with Prisma writes and add approvals/notes.
-          </li>
-        </ul>
-      </div>
-
       <Link
         href="/"
         className="text-sm text-amber-200 underline-offset-4 hover:text-amber-100 hover:underline"
